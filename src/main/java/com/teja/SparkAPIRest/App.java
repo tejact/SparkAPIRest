@@ -2,6 +2,7 @@ package com.teja.SparkAPIRest;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.after;
 
 import com.google.gson.Gson;
 import com.teja.DAO.CourseDAO;
@@ -22,7 +23,6 @@ public class App
         
         get("/hello",(req,res)-> {
             System.out.println( "Hello World!" );
-
         	return "Welcome to spark web application";
         });
         
@@ -33,6 +33,19 @@ public class App
         	res.status(201);
         	res.type("application/json");
         	return  course;
-        },(model)->{return model.toString();});
-    }
+        },gson::toJson);
+        
+        get("/courses","application/json",
+        		(req,res)-> courseDAO.findAll(),gson::toJson);
+        
+    
+        after(
+        		(req,res) -> 
+        		{
+        			res.type("application/json");   			
+        			}
+        		);
+    
+    
+}
 }
