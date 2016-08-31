@@ -9,8 +9,14 @@ import com.teja.model.Course;
 
 public class SQL2OCourseDAO implements CourseDAO {
 
-	String connectionString = "jdbc:h2:mem:testing;"
-			+ "INIT=RUNSCRIPT from 'classpath:data/init.sql'";
+	
+	//Memory based H2
+	/*String connectionString = "jdbc:h2:mem:testing;"
+			+ "INIT=RUNSCRIPT from 'classpath:data/init.sql'";*/
+	
+	//File based H2
+	String connectionString = "jdbc:h2:~/review.db;"
+			+ "INIT=RUNSCRIPT from 'classpath:data/init.sql' ";
 	Sql2o sql2o = new Sql2o(connectionString,"","");
 
 	
